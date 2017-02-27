@@ -1,19 +1,154 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-  </body>
 
-  <script>
+<head>
+  <meta charset="UTF-8">
+  <title>mg-asset-wrangler</title>
+
+  <!-- CSS Reset -->
+  <link rel="stylesheet" href="node_modules/normalize.css/normalize.css" />
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+  <!-- Milligram CSS minified -->
+  <link rel="stylesheet" href="node_modules/milligram/dist/milligram.min.css">
+</head>
+
+<body>
+  <h1>mg-asset-wrangler</h1>
+  <div class="container">
+    <div class="row">    
+      <div class="column column-90">
+        <!-- All of the Node.js APIs are available in this renderer process. -->
+        We are using Node.js
+        <script>
+          document.write(process.versions.node)
+        </script>, Chromium
+        <script>
+          document.write(process.versions.chrome)
+        </script>, and Electron
+        <script>
+          document.write(process.versions.electron)
+        </script>.
+      </div>
+    </div>
+  <hr />
+    <div class="row">    
+      <div class="column column-90">
+        <h2>Steps </h2>
+        <ol>
+          <li>Pick a <a href="#block_structure">block structure</a></li>
+          <li>Pick an <a href="#operating_system">operating system </a> </li>
+          <li>Select a <a href="#dest_folder"> destination folder </a> </li>
+          <li>View <a href="#existing_assets"> existing assets </a> </li>
+          <li>Select a <a href="#select_file"> source file </a> </li>
+          <li>Generate an <a href="#asset_identifier"> asset identifier </a> </li>
+          <li>Now click <a href="#insert_file_top" class="button" > Insert file </a> </li>
+          <li>Done </li>
+        </ol>
+      </div>
+    </div>
+  <hr />
+  <div class="row">    
+    <div id="block_structure" class="column column-90">
+      <h2>Block encoding </h2>
+      <select>
+        <option value="masked-32" selected>
+          Masked 32-bit
+        </option>                 
+        <option value="masked-64">
+          Masked 64-bit
+        </option>
+        <option value="zipped-mask-32">
+          Masked 32-bit (Zipped)
+        </option>         
+      </select>
+    </div>
+  </div>
+  <hr /> 
+  <div class="row">      
+    <div id="operating_system" class="column column-90">
+      <h2>Operating system</h2>
+      <select>
+        <option value="win">
+          Windows
+        </option>
+        <option value="mac">
+          Mac
+        </option>                  
+      </select>
+    </div>
+  </div>
+  <hr /> 
+  <div class="row">     
+    <div id="dest_folder" class="column column-90">
+      <h2>Destination folder</h2>
+      <input id="output" type="url" value="file://" />
+      <br />
+      <h3 id="existing_assets"> Existing assets </h3>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Asset Id
+            </th>
+            <th>
+              File type
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              1
+            </td>  
+            <td>
+              .png
+            </td>        
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr />
+  <div class="row">    
+    <div id="select_file" class="column column-90">
+      <h2>Select file</h2>    
+      <input type="file" />
+    </div>
+  </div>
+  <hr />  
+  <div class="row">    
+    <div id="asset_identifier" class="column column-90">
+      <h2> Generate asset identifier  </h2>
+      <form>
+        <h3>Block encoding : <span id="block_encoding"></span></h3>
+        <fieldset>
+          <label for="blockMask">Block mask</label>
+          <input type="text" placeholder="Enter front bitwise mask here (in hexadecimal)" id="blockMask" required>
+          <label for="indexMask">Index mask</label>
+          <input type="text" placeholder="Enter back bitwise mask here (in hexadecimal)" id="indexMask" required>                     
+          <label for="blockNumber">Block number</label>
+          <input type="number" id="blockNumber" min="1" placeholder="Enter a block number here" required />
+          <label for="indexNumber">Index number</label>
+          <input type="number" id="indexNumber" min="1" placeholder="Enter an index number here" required />          
+          <input class="button-primary" type="submit" value="Generate">
+        </fieldset>
+      </form>
+    </div>
+  </div>  
+  <hr />  
+  <div class="row">  
+    <button class="button button-primary" id="insert_file_end"> Insert file </button>  
+  </div>
+</div>
+</body>
+<script>
     // You can also require other files to run in this process
     require('./renderer.js')
-  </script>
+
+    assets = []
+
+
+</script>
+
 </html>
