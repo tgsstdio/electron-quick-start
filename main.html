@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>mg-asset-wrangler</title>
+
+    <!-- CSS Reset -->
+    <link rel='stylesheet' href='node_modules/normalize.css/normalize.css' />
+    <!-- Google Fonts -->
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic' />
+    <!-- Milligram CSS minified -->
+    <link rel='stylesheet' href='node_modules/milligram/dist/milligram.min.css'>
+  </head>
+  <body>
+    <h1> mg-asset-wrangler </h1>
+    <div id='container' />
+  </body>
+<script>
+  const Inferno = require('inferno')
+  const Component = require('inferno-component')
+  const createElement = require('inferno-create-element')
+
+  class AssetIdGenerator extends Component {
+    constructor (props) {
+      super(props)
+      var parent = this
+      parent.state = {
+        title: 'abc'
+      }
+    }
+
+    render () {
+      return createElement('h1', {}, 'hello')
+    }
+  }
+
+  var canvas = document.getElementById('container')
+
+  if (canvas !== null)
+  {
+    console.log('is canvas')
+  } else {
+    console.log('missing')
+  }
+
+  var elem = createElement(AssetIdGenerator, { title : 'abc'})
+  Inferno.render(elem, canvas)
+</script>
+
+</html>
