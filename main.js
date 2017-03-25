@@ -23,7 +23,7 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -58,3 +58,10 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+const ipc = require('electron').ipcMain
+const { transformVk } = require('./replace')
+
+ipc.on('transform-vk-asset', (data) => {
+  transformVk(data.inputFile, data.entryPoint, data.outputFile, data.callback)
+})
