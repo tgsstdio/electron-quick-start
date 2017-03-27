@@ -3,6 +3,7 @@ const createElement = require('inferno-create-element')
 
 const AssetIdGenerator = require('./AssetIdGenerator')
 const EncodingSchemaSelector = require('./EncodingSchemaSelector')
+const NewAssetSelector = require('./NewAssetSelector')
 const OperatingSystemSelector = require('./OperatingSystemSelector')
 const DestinationFolderExplorer = require('./DestinationFolderExplorer')
 
@@ -10,8 +11,10 @@ class AssetWrangler extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      assetGenerator: props.assetGenerator,
-      encodingSchema: props.encodingSchema
+      assetGenerator: props.assetGenerator
+      , encodingSchema: props.encodingSchema
+      , destinationFolder: props.destinationFolder
+      , onComponentShouldUpdate: props.onComponentShouldUpdate
     }
   }
 
@@ -41,7 +44,15 @@ class AssetWrangler extends Component {
         , createElement('hr', null, null)
         , createElement(
           DestinationFolderExplorer
+          , {
+            destinationFolder: this.state.destinationFolder
+          }
           , null
+        )
+        , createElement('hr', null, null)
+        , createElement(
+          NewAssetSelector
+          , this.state.assetGenerator
           , null
         )
         , createElement('hr', null, null)

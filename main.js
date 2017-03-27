@@ -60,8 +60,27 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 
 const ipc = require('electron').ipcMain
-const { transformVk } = require('./replace')
+const dialog = require('electron').dialog
+const fs = require('fs')
 
-ipc.on('transform-vk-asset', (data) => {
-  transformVk(data.inputFile, data.entryPoint, data.outputFile, data.callback)
+ipc.on('open-file-dialog', function (event) {
+  dialog.showOpenDialog({
+    properties: ['openFile', 'openDirectory']
+  }, function (folderPath) {
+    if (folderPath) {
+      fs.readdir(folderPath[0], null, (err, files) => {
+        if (err) {
+          throw err
+        }
+
+        var packet = {
+          folderPath: folderPath[0],
+          files: files
+        }
+
+        event.sender.send('selected-directory', packet)
+      })
+    }
+  })
 })
+

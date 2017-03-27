@@ -1,10 +1,13 @@
+const linkEvent = require('inferno').linkEvent
 const Component = require('inferno-component')
 const createElement = require('inferno-create-element')
 
 class DestinationFolderExplorer extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      destinationFolder: props.destinationFolder
+    }
   }
 
   render () {
@@ -14,13 +17,26 @@ class DestinationFolderExplorer extends Component {
       , createElement(
         'div'
         , { id: 'dest_folder', className: 'column column-90' }
-        , createElement('h2', null, 'Destination folder')
+        , createElement('h2', null, `Destination folder ${this.state.destinationFolder.files.length}`)
         , createElement(
           'input'
-          , { id: 'output', type: 'url', value: 'file://' }
+          , { 
+            id: 'select-directory'
+            , type: 'button'
+            , value: 'Select folder'
+            , onClick: linkEvent(this, this.state.destinationFolder.selectFolder)
+          }
           , null
         )
-        , createElement('br', null, 'null')
+        , createElement(
+          'div'
+          , null
+          , createElement(
+            'span'
+            , { id: 'selected-file' }
+            , null
+          )
+        )
         , createElement(
           'h3'
           , { id: 'existing_assets' }

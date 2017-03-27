@@ -28,12 +28,34 @@
         console.log('missing')
       }
 
+      function handleOpenFileDialog(instance, event) {
+        ipc.send('open-file-dialog')
+      }
+
+      function onComponentShouldUpdate (lastProps, newProps) {
+        return (lastProps.destination.files.length !== newProps.destination.files.length)
+      }
+
+
+      var destinationFolder = {
+        selectFolder : handleOpenFileDialog,
+        files: []
+      }
+
       var appData = {
         assetGenerator : { encodingSchema: '32-bit', blockNumber: 1, indexNumber : 0 }
         , encodingSchema : { }
+        , destinationFolder : destinationFolder
       }
 
       var elem = createElement(AssetWrangler, appData)
+
+      ipc.on('selected-directory', function (event, packet) {
+        document.getElementById('selected-file').innerHTML = `You selected: ${packet.folderPath}`
+        destinationFolder.files = packet.files
+        Inferno.render(elem, canvas)
+      })
+      
       Inferno.render(elem, canvas)
     </script>
   </body>
